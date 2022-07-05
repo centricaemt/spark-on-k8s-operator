@@ -199,10 +199,9 @@ func buildSubmissionCommandArgs(app *v1beta2.SparkApplication, driverPodName str
 }
 
 func getMasterURL() (string, error) {
-	kubernetesServiceHost := os.Getenv(kubernetesServiceHostEnvVar)
-	if kubernetesServiceHost == "" {
-		return "", fmt.Errorf("environment variable %s is not found", kubernetesServiceHostEnvVar)
-	}
+	// Hardcode due to SSL errors on IPv6 cluster
+	kubernetesServiceHost := "kubernetes.default.svc"
+
 	kubernetesServicePort := os.Getenv(kubernetesServicePortEnvVar)
 	if kubernetesServicePort == "" {
 		return "", fmt.Errorf("environment variable %s is not found", kubernetesServicePortEnvVar)
